@@ -16,7 +16,7 @@ int main(void)
   nrfSAD(0xC71918C3, 0);
   nrfSAD(0xC715A8C3, 1);
   SCE;//Переход в режим приема/передачи
-  memset(txB, 0, 32);
+  memset(txB, 10, 32);
 
   while (1) {
     if (nrfAD != 0b111) {
