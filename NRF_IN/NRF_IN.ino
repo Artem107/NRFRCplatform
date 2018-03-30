@@ -21,11 +21,11 @@ int main(void)
   while (1) {
     if (nrfAD != 0b111) {
       nrfRD(rxB, txB, nrfAD);
-      /*      for (int i = 0; i != 32; i++) {
+            for (int i = 0; i != 32; i++) {
                     Serial.print(rxB[i]);
                     Serial.print(" ");
                   }
-                  Serial.println("OK");*/
+                  Serial.println("OK");
     }
     if (rxB[0] != a) {
       Serial.println(rxB[0]);
