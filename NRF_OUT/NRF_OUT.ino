@@ -1,3 +1,9 @@
+//activ led 1 pin2
+//Red pin3
+//active led2 pin4
+//Green pin5
+//Blue pin6
+
 #include "function.h"
 #include "define.h"
 #include "nrfLib.h"
@@ -15,7 +21,7 @@ int main(void)
   nrfInit();//Инициализация переферии для работы с nrf
   nrfConf();//Настройка модуля
   nrfST;//Установка nrf в режим приема
-  nrfSAD(0xC715A8C3, 0);
+  nrfSAD(0xC715A8C3, 0);///Изменение адресса трубы
   nrfSAD(0xC715A8C3, 6);
   Serial.println("Ready");
 
