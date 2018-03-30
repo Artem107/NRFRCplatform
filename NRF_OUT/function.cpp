@@ -1,7 +1,7 @@
 #include "function.h"
 #include "define.h"
 
-void ADC_init() {
+static void ADC_init() {
   ADMUX = 0b01000000;
   ADCSRA = 0b10000111;
 }
@@ -24,4 +24,13 @@ uint8_t spiWR(uint8_t data) {
   SPDR = data;//Начинаем передачу данных
   while ((SPSR & (1 << SPIF)) == 0);//Ожидание окончание передачи
   return SPDR;//Возращаем принятые данные и сбрасываем флаг передачи
+}
+
+void initTimer() {
+  TCCR1B = 0b001;
+  TIMSK1 = 1;
+}
+
+uint32_t getCycles(){
+  return TCNT1+(cycles<<16);
 }

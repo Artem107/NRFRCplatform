@@ -4,9 +4,15 @@
 #include <stdint.h>
 #include <avr/io.h>
 
-static void ADC_init();
+extern uint32_t cycles;
+
+void ADC_init();
 uint16_t ADC_result(uint8_t);
 void spi_init();
 uint8_t spiWR(uint8_t);
+void initMove();
+void initTimer();
+uint32_t getCycles();
+void move(int8_t = 0, int8_t = 0);
 
 #endif
