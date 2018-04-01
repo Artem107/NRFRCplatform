@@ -23,9 +23,9 @@ int main(void)
   nrfST;//Установка nrf в режим приема
   nrfSAD(0xC715A8C3, 0);///Изменение адресса трубы
   nrfSAD(0xC715A8C3, 6);
-  Serial.println("Ready");
+  //Serial.println("Ready");
 
-  //memset(txB, 0, 32);
+  memset(txB, 0, 32);
 
   while (1) {
     if (nrfSD(txB, rxB)) {
