@@ -21,6 +21,7 @@ int main(void)
   sei();
   memset(txB, 10, 32);
   move(0,0);
+  _delay_ms(10);
   while (1) {
     if (nrfAD != 0b111) {
       nrfRD(rxB, txB, nrfAD);
