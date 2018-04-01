@@ -17,7 +17,7 @@ int main(void)
   ADC_init();
 
   Serial.begin(250000);
-  sei();
+  //sei();
   nrfInit();//Инициализация переферии для работы с nrf
   nrfConf();//Настройка модуля
   nrfST;//Установка nrf в режим приема
@@ -30,12 +30,12 @@ int main(void)
   while (1) {
     if (nrfSD(txB, rxB)) {
       for (int i = 0; i != 32; i++) {
-        Serial.print(rxB[i]);
-        Serial.print(" ");
+        //Serial.print(rxB[i]);
+        //Serial.print(" ");
       }
-      Serial.println("OK");
+      //Serial.println("OK");
     }
-    else Serial.println("Err");
+    else //Serial.println("Err");
     //_delay_us(1000);
     txB[0] = key1();
   }
