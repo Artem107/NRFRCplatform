@@ -29,11 +29,11 @@ int main(void)
 
   while (1) {
     if (nrfSD(txB, rxB)) {
-      for (int i = 0; i != 32; i++) {
+      /*for (int i = 0; i != 32; i++) {
         Serial.print(rxB[i]);
         Serial.print(" ");
       }
-      Serial.println("OK");
+      Serial.println("OK");*/
     }
     else Serial.println("Err");
     //_delay_us(1000);
