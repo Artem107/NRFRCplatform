@@ -31,7 +31,7 @@ int main(void)
     if (nrfSD(txB, rxB)) {
       for (int i = 0; i != 32; i++) {
         Serial.print(rxB[i]);
-        Serial.print(" ");
+        //Serial.print(" ");
       }
       Serial.println("OK");
     }
