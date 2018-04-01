@@ -20,7 +20,7 @@ int main(void)
   SCE;//Переход в режим приема/передачи
   sei();
   memset(txB, 10, 32);
-
+  move(0,0);
   while (1) {
     if (nrfAD != 0b111) {
       nrfRD(rxB, txB, nrfAD);
