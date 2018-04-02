@@ -8,40 +8,71 @@
 #include "define.h"
 #include "nrfLib.h"
 
-uint8_t key;
-uint8_t rxB[32];
-uint8_t txB[32];
+union packetTX {
+  uint8_t buffer[32];
+  struct messege {
+    uint8_t peref1, peref2;
+    int8_t motor1, motor2;
+  } msg;
+} packTX;
+
+union packetRX {
+  uint8_t buffer[32];
+  struct messege {
+    uint8_t stat1, stat2, stat3, peref1, peref2;
+    uint16_t voltage;
+    uint8_t amplif1, amplif2;
+  } msg;
+} packRX;
 
 int main(void)
 {
   ADC_init();
 
   Serial.begin(250000);
-  //sei();
+  sei();
   nrfInit();//Инициализация переферии для работы с nrf
   nrfConf();//Настройка модуля
   nrfST;//Установка nrf в режим приема
   nrfSAD(0xC715A8C3, 0);///Изменение адресса трубы
   nrfSAD(0xC715A8C3, 6);
-  //Serial.println("Ready");
-
-  memset(txB, 0, 32);
+  Serial.println("Ready");
 
   while (1) {
-    if (nrfSD(txB, rxB)) {
-      for (int i = 0; i != 32; i++) {
-        //Serial.print(rxB[i]);
-        //Serial.print(" ");
-      }
-      //Serial.println("OK");
+    switch (key()) {
+      case 1:
+        packTX.msg.motor1 = -64;
+        packTX.msg.motor2 = 64;
+        nrfSD(packTX.buffer, packRX.buffer);
+        break;
+      case 2:
+        packTX.msg.motor1 = 64;
+        packTX.msg.motor2 = 64;
+        nrfSD(packTX.buffer, packRX.buffer);
+        break;
+      case 3:
+        packTX.msg.motor1 = -64;
+        packTX.msg.motor2 = -64;
+        nrfSD(packTX.buffer, packRX.buffer);
+        break;
+      case 4:
+        packTX.msg.motor1 = 64;
+        packTX.msg.motor2 = -64;
+        nrfSD(packTX.buffer, packRX.buffer);
+        break;
+      default:
+        packTX.msg.motor1 = 0;
+        packTX.msg.motor2 = 0;
+        nrfSD(packTX.buffer, packRX.buffer);
+        break;
     }
-    else //Serial.println("Err");
-    //_delay_us(1000);
-    txB[0] = key1();
+    Serial.print(packTX.buffer[2]);
+    Serial.print(" ");
+    Serial.println(packTX.buffer[3]);
   }
 }
 
-uint8_t key1() {
+uint8_t key() {
   uint16_t a = ADC_result(7);
   if (a < 70)return 1;
   if (a < 212)return 2;
