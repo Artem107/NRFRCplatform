@@ -41,23 +41,23 @@ int main(void)
   while (1) {
     switch (key()) {
       case 1:
-        packTX.msg.motor1 = -64;
-        packTX.msg.motor2 = 64;
+        packTX.msg.motor1 = -127;
+        packTX.msg.motor2 = 127;
         Serial.println(nrfSD(packTX.buffer, packRX.buffer));
         break;
       case 2:
-        packTX.msg.motor1 = 64;
-        packTX.msg.motor2 = 64;
+        packTX.msg.motor1 = 127;
+        packTX.msg.motor2 = 127;
         nrfSD(packTX.buffer, packRX.buffer);
         break;
       case 3:
-        packTX.msg.motor1 = -64;
-        packTX.msg.motor2 = -64;
+        packTX.msg.motor1 = -127;
+        packTX.msg.motor2 = -127;
         nrfSD(packTX.buffer, packRX.buffer);
         break;
       case 4:
-        packTX.msg.motor1 = 64;
-        packTX.msg.motor2 = -64;
+        packTX.msg.motor1 = 127;
+        packTX.msg.motor2 = -127;
         nrfSD(packTX.buffer, packRX.buffer);
         break;
       default:
@@ -66,9 +66,7 @@ int main(void)
         nrfSD(packTX.buffer, packRX.buffer);
         break;
     }
-    Serial.print(packTX.buffer[2]);
-    Serial.print(" ");
-    Serial.println(packTX.buffer[3]);
+    Serial.println(packRX.msg.voltage);
   }
 }
 

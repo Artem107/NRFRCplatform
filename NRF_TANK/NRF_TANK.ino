@@ -23,6 +23,7 @@ union packetTX {
 int main(void)
 {
   Serial.begin(250000);
+  ADC_init();
   initMove();
   initTimer();
   nrfInit();//Инициализация переферии для работы с nrf
@@ -35,9 +36,9 @@ int main(void)
   _delay_ms(10);
   while (1) {
     if (nrfAD != 0b111) {
+      packTX.msg.voltage=ADC_result(7);
       nrfRD(packRX.buffer, packTX.buffer, nrfAD);
       move(packRX.msg.motor1, packRX.msg.motor2);
-      Serial.println(packRX.msg.motor1);
     }
   }
 }

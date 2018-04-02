@@ -2,7 +2,7 @@
 #include "define.h"
 
 static void ADC_init() {
-  ADMUX = 0b01000000;
+  ADMUX = 0b11000000;
   ADCSRA = 0b10000111;
 }
 
