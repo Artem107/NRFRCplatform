@@ -3,9 +3,22 @@
 #include "nrfLib.h"
 #include "interrupt.h"
 
-uint8_t a;
-uint8_t rxB[32];
-uint8_t txB[32];
+union packetRX {
+  uint8_t buffer[32];
+  struct messege {
+    uint8_t peref1, peref2;
+    int8_t motor1, motor2;
+  } msg;
+} packRX;
+
+union packetTX {
+  uint8_t buffer[32];
+  struct messege {
+    uint8_t stat1, stat2, stat3, peref1, peref2;
+    uint16_t voltage;
+    uint8_t ampl1, ampl2;
+  } msg;
+} packTX;
 
 int main(void)
 {
@@ -15,27 +28,17 @@ int main(void)
   nrfInit();//Инициализация переферии для работы с nrf
   nrfConf();//Настройка модуля
   nrfSR;//Установка nrf в режим приема
-  nrfSAD(0xC71918C3, 0);
-  nrfSAD(0xC715A8C3, 1);
+  //nrfSAD(0xC715A8C3, 0);
   SCE;//Переход в режим приема/передачи
   sei();
-  memset(txB, 10, 32);
-  move(0,0);
+  move(0, 0);
   _delay_ms(10);
   while (1) {
     if (nrfAD != 0b111) {
-      nrfRD(rxB, txB, nrfAD);
-            for (int i = 0; i != 32; i++) {
-                    Serial.print(rxB[i]);
-                    Serial.print(" ");
-                  }
-                  Serial.println("OK");
+      nrfRD(packRX.buffer, packTX.buffer, nrfAD);
+      move(packRX.msg.motor1, packRX.msg.motor2);
+      Serial.println(packRX.msg.motor1);
     }
-    if (rxB[0] != a) {
-      Serial.println(rxB[0]);
-      a = rxB[0];
-    }
-    txB[2] = rxB[0];
   }
 }
 

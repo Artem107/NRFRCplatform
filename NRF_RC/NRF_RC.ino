@@ -21,7 +21,7 @@ union packetRX {
   struct messege {
     uint8_t stat1, stat2, stat3, peref1, peref2;
     uint16_t voltage;
-    uint8_t amplif1, amplif2;
+    uint8_t ampl1, ampl2;
   } msg;
 } packRX;
 
@@ -33,9 +33,9 @@ int main(void)
   sei();
   nrfInit();//Инициализация переферии для работы с nrf
   nrfConf();//Настройка модуля
-  nrfST;//Установка nrf в режим приема
-  nrfSAD(0xC715A8C3, 0);///Изменение адресса трубы
-  nrfSAD(0xC715A8C3, 6);
+  nrfST;//Установка nrf в режим передачи
+  //nrfSAD(0xC715A8C3, 0);///Изменение адресса трубы
+  //nrfSAD(0xC715A8C3, 6);
   Serial.println("Ready");
 
   while (1) {
@@ -43,7 +43,7 @@ int main(void)
       case 1:
         packTX.msg.motor1 = -64;
         packTX.msg.motor2 = 64;
-        nrfSD(packTX.buffer, packRX.buffer);
+        Serial.println(nrfSD(packTX.buffer, packRX.buffer));
         break;
       case 2:
         packTX.msg.motor1 = 64;
