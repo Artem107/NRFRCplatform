@@ -43,7 +43,7 @@ int main(void)
       case 1:
         packTX.msg.motor1 = -127;
         packTX.msg.motor2 = 127;
-        Serial.println(nrfSD(packTX.buffer, packRX.buffer));
+        nrfSD(packTX.buffer, packRX.buffer);
         break;
       case 2:
         packTX.msg.motor1 = 127;
@@ -66,7 +66,7 @@ int main(void)
         nrfSD(packTX.buffer, packRX.buffer);
         break;
     }
-    Serial.println(packRX.msg.voltage);
+    Serial.println(packRX.msg.voltage*0.01154);
   }
 }
 
