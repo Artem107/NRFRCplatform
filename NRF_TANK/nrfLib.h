@@ -20,6 +20,7 @@
 #define nrfDPL(a) nrfW(DYNPD, a)
 #define nrfRF(a) nrfW(RF_SETUP, a)
 #define nrfAD ((nrfR() >> 1 ) & 0x7)
+#define nrfAA(a) nrfW(EN_AA, a)
 
 #define SCE  setB(2)
 #define SCSN setB(1)
