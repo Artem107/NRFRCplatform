@@ -29,6 +29,23 @@
 
 extern uint8_t CH;
 
+union packetTX {
+  uint8_t buffer[32];
+  struct messege {
+    uint8_t peref1, peref2;
+    int8_t motor1, motor2;
+  } msg;
+};
+
+union packetRX {
+  uint8_t buffer[32];
+  struct messege {
+    uint8_t stat1, stat2, stat3, peref1, peref2;
+    uint16_t voltage;
+    uint8_t ampl1, ampl2;
+  } msg;
+};
+
 void nrfInit();
 void nrfConf();
 uint8_t nrfR(uint8_t);
